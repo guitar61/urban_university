@@ -1,7 +1,17 @@
 class House:
+    houses_history = []
+
+    def __new__(cls, *args, **kwargs):
+        instance = super().__new__(cls)
+        return instance
+
     def __init__(self, name, num_of_floors):
         self.name = name
         self.num_of_floors = num_of_floors
+        House.houses_history.append(self.name)
+
+    def __del__(self):
+        print(f"{self.name} has been demolished, but it will remain in history")
 
     def __len__(self):
         return self.num_of_floors
@@ -54,26 +64,15 @@ class House:
         return self.__add__(value)
 
 
-h1 = House('ЖК Эльбрус', 10)
-h2 = House('ЖК Акация', 20)
+h1 = House('Residential Complex Elbrus', 10)
+print(House.houses_history)
+h2 = House('Residential Complex Acacia', 20)
+print(House.houses_history)
+h3 = House('Residential Complex Matryoshka', 20)
+print(House.houses_history)
 
-print(h1)
-print(h2)
+# Deleting objects
+del h2
+del h3
 
-print(h1 == h2)  # __eq__
-
-h1 = h1 + 10  # __add__
-print(h1)
-print(h1 == h2)
-
-h1 += 10  # __iadd__
-print(h1)
-
-h2 = 10 + h2  # __radd__
-print(h2)
-
-print(h1 > h2)  # __gt__
-print(h1 >= h2)  # __ge__
-print(h1 < h2)  # __lt__
-print(h1 <= h2)  # __le__
-print(h1 != h2)  # __ne__
+print(House.houses_history)
