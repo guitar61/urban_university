@@ -1,7 +1,19 @@
 class House:
+    houses_history = []
+
+    def __new__(cls, *args, **kwargs):
+        # Create a new instance of the class
+        instance = super(House, cls).__new__(cls)
+        # Add the name of the house to the houses_history list
+        cls.houses_history.append(args[0])
+        return instance
+
     def __init__(self, name: str, num_of_floors: int):
         self.name = name
         self.num_of_floors = num_of_floors
+
+    def __del__(self):
+        print(f"{self.name} has been demolished, but it will remain in history")
 
     def go_to(self, new_floor: int) -> None:
         if new_floor > self.num_of_floors or new_floor < 1:
@@ -60,27 +72,42 @@ class House:
             return self
         return NotImplemented
 
-# Testing the implementation
-h1 = House('ЖК Эльбрус', 10)
-h2 = House('ЖК Акация', 20)
 
-print(h1)
-print(h2)
+# # Testing the implementation
+# h1 = House('ЖК Эльбрус', 10)
+# h2 = House('ЖК Акация', 20)
+#
+# print(h1)
+# print(h2)
+#
+# print(h1 == h2)  # __eq__
+#
+# h1 = h1 + 10  # __add__
+# print(h1)
+# print(h1 == h2)
+#
+# h1 += 10  # __iadd__
+# print(h1)
+#
+# h2 = 10 + h2  # __radd__
+# print(h2)
+#
+# print(h1 > h2)  # __gt__
+# print(h1 >= h2)  # __ge__
+# print(h1 < h2)  # __lt__
+# print(h1 <= h2)  # __le__
+# print(h1 != h2)  # __ne__
 
-print(h1 == h2)  # __eq__
 
-h1 = h1 + 10  # __add__
-print(h1)
-print(h1 == h2)
+h1 = House('Residential Complex Elbrus', 10)
+print(House.houses_history)
+h2 = House('Residential Complex Acacia', 20)
+print(House.houses_history)
+h3 = House('Residential Complex Matryoshka', 20)
+print(House.houses_history)
 
-h1 += 10  # __iadd__
-print(h1)
+# Deleting objects
+del h2
+del h3
 
-h2 = 10 + h2  # __radd__
-print(h2)
-
-print(h1 > h2)  # __gt__
-print(h1 >= h2)  # __ge__
-print(h1 < h2)  # __lt__
-print(h1 <= h2)  # __le__
-print(h1 != h2)  # __ne__
+print(House.houses_history)
