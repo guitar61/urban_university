@@ -11,7 +11,7 @@ class Bank:
         self.withdraw_count = 0
 
     def deposit(self):
-        while self.deposit_count <= 100:
+        while self.deposit_count < 100:  # Fix 1: Use < instead of <= to avoid infinite loop
             amount = randint(50, 500)
             self.lock.acquire()
             try:
@@ -23,7 +23,7 @@ class Bank:
             time.sleep(0.001)
 
     def withdraw(self):
-        while self.withdraw_count <= 100:
+        while self.withdraw_count < 100:  # Fix 1: Use < instead of <= to avoid infinite loop
             amount = randint(50, 500)
             print(f"Request for {amount} ")
             self.lock.acquire()
@@ -38,15 +38,21 @@ class Bank:
                 self.lock.release()
             time.sleep(0.001)
 
+
+# Create an instance of the Bank class
 bk = Bank()
 
-# Since the methods accept self, the Bank class object itself must be passed to the threads
-th1 = threading.Thread(target=Bank.deposit, args=(bk,))
-th2 = threading.Thread(target=Bank.withdraw, args=(bk,))
+# Fix 2: Pass instance methods to threads instead of class methods
+th1 = threading.Thread(target=bk.deposit)
+th2 = threading.Thread(target=bk.withdraw)
 
+# Start the threads
 th1.start()
 th2.start()
+
+# Wait for both threads to finish
 th1.join()
 th2.join()
 
+# Print the final balance
 print(f'Final balance: {bk.balance}')
