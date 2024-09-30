@@ -1,17 +1,16 @@
 import time
 import multiprocessing
 
-
 # Function to read data from a file line by line
 def read_info(name):
-    all_data = []  # List to store all lines from the file
-    with open(name, 'r') as file:
-        while True:
-            line = file.readline()
-            if not line:  # Stop when we reach the end of the file
-                break
-            all_data.append(line)
-
+    try:
+        with open(name, 'r') as file:
+            for line in file:
+                pass  # No need to store or output the lines, just read them
+    except FileNotFoundError:
+        print(f"File {name} not found!")
+    except IOError as e:
+        print(f"An error occurred while processing {name}: {e}")
 
 # Sequential execution (linear approach)
 def sequential_execution():
@@ -27,7 +26,6 @@ def sequential_execution():
 
     print(f"Sequential Execution Time: {total_time:.6f} seconds")
 
-
 # Multiprocessing execution (parallel approach)
 def multiprocessing_execution():
     filenames = [f'./file{number}.txt' for number in range(1, 5)]  # List of 4 files
@@ -42,7 +40,6 @@ def multiprocessing_execution():
 
     print(f"Multiprocessing Execution Time: {total_time:.6f} seconds")
 
-
 # Main block to run the tests
 if __name__ == "__main__":
     # Uncomment one of the following to test either method:
@@ -51,4 +48,4 @@ if __name__ == "__main__":
     sequential_execution()
 
     # Multiprocessing execution
-    multiprocessing_execution()
+    # multiprocessing_execution()
