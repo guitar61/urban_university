@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
-from app.backend.db import Base
+from backend.db import Base
 
 class User(Base):
     __tablename__ = 'users'
@@ -12,5 +12,5 @@ class User(Base):
     age = Column(Integer, nullable=False)
     slug = Column(String, unique=True, index=True)
 
-    # Define the relationship with Task
+    # Use string reference to avoid circular import
     tasks = relationship("Task", back_populates="user")
