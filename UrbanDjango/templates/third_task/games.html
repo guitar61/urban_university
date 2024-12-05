@@ -1,16 +1,18 @@
+<!-- games.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Shop Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игры</title>
 </head>
 <body>
-    <h1>Игры</h1>
+    <h1>Магазин игр</h1>
     <ul>
-        <li>Atomic Heart <button>Купить</button></li>
-        <li>Cyberpunk 2077 <button>Купить</button></li>
-        <li>PayDay 2 <button>Купить</button></li>
+        {% for key, value in games.items %}
+            <li>{{ value }} <button>Купить</button></li>
+        {% endfor %}
     </ul>
-    <a href="{% url 'platform' %}">Вернуться обратно</a>
+    <a href="/"><button>На главную</button></a>
 </body>
 </html>
