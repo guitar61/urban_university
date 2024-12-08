@@ -1,32 +1,27 @@
 from fastapi import APIRouter
 
-router = APIRouter(prefix="/task", tags=["task"])
-
+# Create a router for task-related routes
+router = APIRouter(
+    prefix="/task",  # All routes in this file will start with "/task"
+    tags=["task"],   # Swagger tag for grouping
+)
 
 @router.get("/")
-async def all_tasks():
-    pass  # Placeholder for the function to return all tasks
+def all_tasks():
+    return {"message": "List of all tasks"}
 
-
-@router.get("/{task_id}")
-async def task_by_id(task_id: int):
-    pass  # Placeholder for the function to return a task by ID
-
+@router.get("/task_id")
+def task_by_id(task_id: int):
+    return {"message": f"Details of task {task_id}"}
 
 @router.post("/create")
-async def create_task():
-    pass  # Placeholder for the function to create a new task
-
+def create_task():
+    return {"message": "Task created"}
 
 @router.put("/update")
-async def update_task():
-    pass  # Placeholder for the function to update a task
-
+def update_task():
+    return {"message": "Task updated"}
 
 @router.delete("/delete")
-async def delete_task():
-    pass  # Placeholder for the function to delete a task
-
-
-
-
+def delete_task():
+    return {"message": "Task deleted"}
