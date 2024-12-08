@@ -1,24 +1,17 @@
-import sys
-import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-
+from sqlalchemy.orm import DeclarativeBase  # Modern DeclarativeBase for SQLAlchemy 2.x
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, DeclarativeBase
-from sqlalchemy.schema import CreateTable
+from sqlalchemy.orm import sessionmaker
 
-# Create the engine with SQLite database
-engine = create_engine('sqlite:///taskmanager.db', echo=True)
+# Database URL for SQLite
+DATABASE_URL = "sqlite:///taskmanager.db"
 
-# Create session local for database operations
-SessionLocal = sessionmaker(bind=engine)
+# Create the database engine
+engine = create_engine(DATABASE_URL, echo=True)
 
-# Create a base class for models
-class Base(DeclarativeBase):
+# Create a session factory
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
+# Base class for models
+class Base(DeclarativeBase):  # Use DeclarativeBase for SQLAlchemy 2.x
     pass
-
-# Ensure models are imported only in the main block
-if __name__ == "__main__":
-    from app.models import user, task
-    print(CreateTable(user.User.__table__).compile(engine))
-    print(CreateTable(task.Task.__table__).compile(engine))
