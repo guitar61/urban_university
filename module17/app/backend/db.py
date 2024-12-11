@@ -1,17 +1,15 @@
-from sqlalchemy.orm import DeclarativeBase  # Modern DeclarativeBase for SQLAlchemy 2.x
 from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-# Database URL for SQLite
+# Database URL
 DATABASE_URL = "sqlite:///taskmanager.db"
 
-# Create the database engine
-engine = create_engine(DATABASE_URL, echo=True)
+# SQLAlchemy engine
+engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 
-# Create a session factory
+# Session for database queries
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-
-# Base class for models
-class Base(DeclarativeBase):  # Use DeclarativeBase for SQLAlchemy 2.x
-    pass
+# Base class for all models
+Base = declarative_base()
