@@ -1,27 +1,31 @@
 from fastapi import APIRouter
 
-# Create a router for task-related routes
 router = APIRouter(
-    prefix="/task",  # All routes in this file will start with "/task"
-    tags=["task"],   # Swagger tag for grouping
+    prefix="/task",
+    tags=["task"]
 )
 
 @router.get("/")
 def all_tasks():
-    return {"message": "List of all tasks"}
+    """Return all tasks"""
+    return {"message": "All tasks"}
 
-@router.get("/task_id")
+@router.get("/{task_id}")
 def task_by_id(task_id: int):
-    return {"message": f"Details of task {task_id}"}
+    """Return a task by ID"""
+    return {"message": f"Task with ID {task_id}"}
 
 @router.post("/create")
 def create_task():
-    return {"message": "Task created"}
+    """Create a new task"""
+    return {"message": "Task created successfully"}
 
-@router.put("/update")
-def update_task():
-    return {"message": "Task updated"}
+@router.put("/update/{task_id}")
+def update_task(task_id: int):
+    """Update an existing task"""
+    return {"message": f"Task with ID {task_id} updated"}
 
-@router.delete("/delete")
-def delete_task():
-    return {"message": "Task deleted"}
+@router.delete("/delete/{task_id}")
+def delete_task(task_id: int):
+    """Delete a task"""
+    return {"message": f"Task with ID {task_id} deleted"}
