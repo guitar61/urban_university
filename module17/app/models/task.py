@@ -1,12 +1,11 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
-from app.backend.db import Base  # Import Base from db.py
+from app.backend.db import Base
 
 class Task(Base):
-    __tablename__ = "tasks"  # Name of the table in the database
+    __tablename__ = "tasks"
 
-    # Columns
-    id = Column(Integer, primary_key=True, index=True)  # Primary Key
+    id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False)
     content = Column(String, nullable=False)
     priority = Column(Integer, default=0)
@@ -14,5 +13,5 @@ class Task(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     slug = Column(String, unique=True, index=True)
 
-    # Relationships
-    user = relationship("User", back_populates="tasks")  # Use string "User"
+    # Relationship with User
+    user = relationship("User", back_populates="tasks")
