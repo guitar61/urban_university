@@ -6,8 +6,10 @@
 </head>
 <body>
     <h1>Главная страница</h1>
-    <a href="{% url 'platform' %}">Главная</a> - Заглушка<br>
-    <a href="{% url 'games' %}">Магазин</a> - Ссылки на другие страницы<br>
-    <a href="{% url 'cart' %}">Корзина</a> - Ссылки на другие страницы<br>
+    <ul>
+        <li><a href="/platform/">Главная</a> — Заглушка</li>
+        <li><a href="/platform/games/">Магазин</a> — Ссылки на другие страницы</li>
+        <li><a href="/platform/cart/">Корзина</a></li>
+    </ul>
 </body>
 </html>
