@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block pagename %}Default Page{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .heading {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid green;
+            padding: 10px;
+        }
+        .menu {
+            text-align: left;
+            margin: 20px auto;
+            border: 1px solid green;
+            padding: 10px;
+            width: fit-content;
+        }
+        .menu a {
+            display: block;
+            text-decoration: none;
+            font-size: 18px;
+            color: blue;
+            margin: 5px 0;
+        }
+        .menu a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            text-align: center;
+            margin: 20px auto;
+            border: 1px solid green;
+            padding: 10px;
+            width: fit-content;
+        }
+    </style>
+</head>
+<body>
+    <div class="heading">
+        {% block heading %}Default Title{% endblock %}
+    </div>
+    <div class="menu">
+        <nav>
+            {% block menu %}
+            <a href="{% url 'platform' %}">Главная</a>
+            <a href="{% url 'games' %}">Магазин</a>
+            <a href="{% url 'cart' %}">Корзина</a>
+            {% endblock %}
+        </nav>
+    </div>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
