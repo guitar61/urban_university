@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+# User Schemas
 class CreateUser(BaseModel):
     username: str
     firstname: str
@@ -11,10 +12,11 @@ class UpdateUser(BaseModel):
     lastname: str
     age: int
 
+# Task Schemas
 class CreateTask(BaseModel):
     title: str
     content: str
-    priority: int
+    priority: int = 0
 
 class UpdateTask(BaseModel):
     title: str
