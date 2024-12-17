@@ -6,11 +6,8 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, nullable=False)
-    firstname = Column(String, nullable=False)
-    lastname = Column(String, nullable=False)
-    age = Column(Integer, nullable=False)
-    slug = Column(String, unique=True, index=True)
-
-    # Relationship with Task
-    tasks = relationship("Task", back_populates="user")
+    username = Column(String, unique=True, index=True)
+    firstname = Column(String)
+    lastname = Column(String)
+    age = Column(Integer)
+    tasks = relationship("Task", back_populates="user", cascade="all, delete")
