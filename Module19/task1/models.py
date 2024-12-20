@@ -20,3 +20,16 @@ class Game(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class News(models.Model):
+    title = models.CharField(max_length=200)  # Title of the news
+    content = models.TextField()  # Content of the news
+    date = models.DateTimeField(auto_now_add=True)  # Publication date
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "News"  # Singular name
+        verbose_name_plural = "News"  # Plural name

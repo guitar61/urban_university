@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Buyer, Game
+from .models import Buyer, Game, News
 
 
 @admin.register(Game)
@@ -33,3 +33,10 @@ class BuyerAdmin(admin.ModelAdmin):
 
     # Make balance read-only
     readonly_fields = ['balance']
+
+
+@admin.register(News)
+class NewsAdmin(admin.ModelAdmin):
+    list_display = ('title', 'date')  # Display these fields in the admin list
+    search_fields = ('title', 'content')  # Add a search box for title and content
+    list_filter = ('date',)  # Add a filter sidebar for the date field

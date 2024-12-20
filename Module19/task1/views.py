@@ -1,5 +1,6 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
-from .models import Buyer, Game  # Import your models
+from .models import Buyer, Game, News  # Import your models
 
 
 # Home Page View
@@ -49,3 +50,14 @@ def register_view(request):
                 info['success'] = f"Welcome, {login}! Your account has been created."
 
     return render(request, 'task1/registration_page.html', {'info': info})
+
+
+def news_view(request):
+    news_list = News.objects.all().order_by('-date')  # Fetch all news sorted by date
+    items_per_page = request.GET.get('items', 5)  # Allow user to set items per page
+    paginator = Paginator(news_list, items_per_page)  # Paginate with the selected number of items per page
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)  # Get the current page
+
+    return render(request, 'task1/news.html', {'news': page_obj, 'items_per_page': items_per_page})
