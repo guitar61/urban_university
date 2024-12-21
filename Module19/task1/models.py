@@ -42,6 +42,4 @@ class Publisher(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta:
-        db_table = 'publisher'  # Use the exact table name from pgAdmin
 
