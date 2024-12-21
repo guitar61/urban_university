@@ -33,3 +33,15 @@ class News(models.Model):
     class Meta:
         verbose_name = "News"  # Singular name
         verbose_name_plural = "News"  # Plural name
+
+
+class Publisher(models.Model):
+    name = models.CharField(max_length=200)
+    location = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'publisher'  # Use the exact table name from pgAdmin
+
