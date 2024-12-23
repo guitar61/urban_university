@@ -21,6 +21,7 @@ def cart_view(request):
 
 
 # Registration View
+# Registration View
 def register_view(request):
     info = {}
     if request.method == 'POST':
@@ -35,19 +36,18 @@ def register_view(request):
             info['error'] = 'All fields must be filled.'
         elif password1 != password2:
             info['error'] = 'Passwords do not match.'
-        elif not age.isdigit() or int(age) < 18:
-            info['error'] = 'You must be 18 or older.'
+        elif not age.isdigit():
+            info['error'] = 'Age must be a number.'
+        elif len(age) > 2:  # Ensure the age input is not longer than 2 characters
+            info['error'] = 'Age cannot exceed two digits.'
+        elif int(age) < 18 or int(age) > 99:
+            info['error'] = 'Age must be between 18 and 99.'
+        elif Buyer.objects.filter(name=login).exists():  # Use ORM to check for duplicate names
+            info['error'] = f"User '{login}' already exists."
         else:
-            # Fetch all buyers and check for duplicate names
-            buyers = Buyer.objects.all()
-            for buyer in buyers:
-                if buyer.name == login:
-                    info['error'] = f"User '{login}' already exists."
-                    break
-            else:
-                # If no duplicates, add the new user
-                Buyer.objects.create(name=login, balance=0.0, age=int(age))
-                info['success'] = f"Welcome, {login}! Your account has been created."
+            # If all validations pass, create the new user
+            Buyer.objects.create(name=login, balance=0.0, age=int(age))
+            info['success'] = f"Welcome, {login}! Your account has been created."
 
     return render(request, 'task1/registration_page.html', {'info': info})
 
